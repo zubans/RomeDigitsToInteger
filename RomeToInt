@@ -1,0 +1,52 @@
+<?php
+
+class RomeToInt
+{
+
+    const ROME_DIGITS = [
+        'I' => 1,
+        'V' => 5,
+        'X' => 10,
+        'L' => 50,
+        'C' => 100,
+        'D' => 500,
+        'M' => 1000,
+    ];
+
+    const IR_DIGITS = [
+        'IV' => 4,
+        'IX' => 9,
+        'XL' => 40,
+        'XC' => 90,
+        'CD' => 400,
+        'CM' => 900,
+    ];
+
+    /**
+     * @return string
+     */
+    public function handle(): string
+    {
+        $res = 0;
+
+        foreach (self::IR_DIGITS as $key => $irDigit) {
+            if (strpos($s, $key) || strpos($s, $key) === 0) {
+                $count = substr_count($s, $key);
+                $s = str_replace($key, '', $s);
+                $res = $res + $irDigit * $count;
+            }
+        }
+
+        $len = strlen($s);
+
+        if ($len >= 1) {
+            for ($i = 0; $i < $len; $i++) {
+                if (in_array($s[$i], array_keys(self::ROME_DIGITS))) {
+                    $res += self::ROME_DIGITS[$s[$i]];
+                }
+            }
+        }
+
+        return $res;
+    }
+}
